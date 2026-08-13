@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from implementation.base_constraints import Opaque, Type, Attribute, Uuid, Ulid, Yaml, Toml, SemVer, Certificate, SecretRef, \
-    CronString, Color, Json, Url
+from implementation.basetypes_constraints import Opaque, Type, Attribute, Uuid, Ulid, Yaml, Toml, SemVer, Certificate, \
+    SecretRef, \
+    CronString, Color, Json, Url, ChildType
 
 from pydantic import BaseModel
 
@@ -28,6 +29,7 @@ class DefaultBaseType:
 
     OPAQUE = Opaque
     TYPE = Type
+    CHILD_TYPE = ChildType
     ATTRIBUTE = Attribute
     SPARSE_OBJECT = SparseObject
 

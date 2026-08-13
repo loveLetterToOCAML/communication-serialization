@@ -17,8 +17,9 @@ class BaseDataTypes(Enum):
     # from there and below all subtypes are kind of string with constraints on formatting or semantics
     OPAQUE = 100     # like bytes but may contain additional information about source / destination the opaque is dedicated to
     TYPE = 101       # this is simple uint8_t array to locate valid types in the full tree
-    ATTRIBUTE = 102  # this is simple uint8_t array to locate the attribute type, with additional uint8_t / uint16_t ? for matching the attribute location
-    SPARSE_OBJECT = 103  # this is type + attributes number + attributes for a given object
+    CHILD_TYPE = 102 # this marks a node and its children within the type tree, on the contrary to the TYPE which is specific node
+    ATTRIBUTE = 103  # this is simple uint8_t array to locate the attribute type, with additional uint8_t / uint16_t ? for matching the attribute location
+    SPARSE_OBJECT = 104  # this is type + attributes number + attributes for a given object
 
     DATETIME = 110
     DATE = 111
@@ -46,6 +47,7 @@ class BaseDataTypes(Enum):
 
     OTHER_EXTERNAL_NETWORK = 240
     OTHER_EXTERNAL_SOCIAL = 241
+    OTHER_EXTERNAL_DATAFORMAT = 242
 
 
 class ExternalNetworkBaseTypes(Enum):
@@ -70,9 +72,24 @@ class ExternalSocialBaseTypes(Enum):
     COMPANY = 8
 
 
+class ExternalDataformatBaseTypes(Enum):
+    CONTAINED = 1   # like tar
+    COMPRESSED = 2
+    ENCRYPTED = 3
+
+    IMAGE = 10
+    SOUND = 11
+    VIDEO = 12
+
+    OLE = 20
+    PDF = 21
+    MS_CONTAINER = 22
+
+
 Base = Root.register_serialization_child(SerialType.BaseTypes, BaseDataTypes)
 ExternalNetworkBase = Base.register_serialization_child(BaseDataTypes.OTHER_EXTERNAL_NETWORK, ExternalNetworkBaseTypes)
 ExternalSocialBase = Base.register_serialization_child(BaseDataTypes.OTHER_EXTERNAL_NETWORK, ExternalSocialBaseTypes)
+ExternalDataFormatBase = Base.register_serialization_child(BaseDataTypes.OTHER_EXTERNAL_DATAFORMAT, ExternalDataformatBaseTypes)
 
 
 # don't know if this is best way to proceed to inject dependency of type implementation (do we really need this

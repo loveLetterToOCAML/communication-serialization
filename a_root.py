@@ -1,8 +1,8 @@
-from enum import Enum
+from ab_basetypes import BaseDataTypes
 
 from pydantic import BaseModel
 
-from ab_basetypes import BaseDataTypes
+from enum import Enum
 
 
 class SerialType(Enum):
@@ -41,7 +41,8 @@ class RootSerial(BaseModel):
 # 0 -> 0x10: precedence happens at child level
 # 0x10 -> 0xff: precedence happens at parent level (so below 0xff Type is defined here for all subtypes)
 class SerialParams(Enum):
-    Type = 0
+    MultibytesParam = 0  # this special param allows to specify some parameter on more than 1 byte
+    Type = 1
 
 
 Root = register_serialization_context()
